@@ -104,11 +104,11 @@ resource "aws_security_group" "my_sg" {
 
 # Launch EC2 Instance in Public Subnet
 resource "aws_instance" "my_ec2" {
-  ami             = "ami-0cafb04477a984411"
+  ami             = "ami-04f0d00fed2873ffd"
   instance_type   = "t2.micro"
   key_name        = "devopskey"
   subnet_id       = aws_subnet.public_subnet.id
-  security_groups = [aws_security_group.my_sg.name]
+  security_groups = ["mysecuritygroup"]
 
   tags = {
     Name = "Spiderman_Instance"
