@@ -4,8 +4,8 @@ provider "aws" {
 
 # Create VPC
 resource "aws_vpc" "my_vpc" {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
 
   tags = {
@@ -102,13 +102,13 @@ resource "aws_security_group" "my_sg" {
   }
 }
 
-# Launch EC2 Instance in Public Subnet
+# Launch EC2 Instance in Public Subnet using direct resource reference for security group
 resource "aws_instance" "my_ec2" {
-  ami             = "ami-0b2415d1d73fc73b7"
-  instance_type   = "t2.micro"
-  key_name        = "devopskey"
-  subnet_id       = aws_subnet.public_subnet.id
-  security_groups = ["mysecuritygroup"]
+  ami                   = "ami-0b2415d1d73fc73b7"
+  instance_type         = "t2.micro"
+  key_name              = "devopskey"
+  subnet_id             = aws_subnet.public_subnet.id
+  vpc_security_group_ids = [aws_security_group.my_sg.id]
 
   tags = {
     Name = "Spiderman_Instance"
